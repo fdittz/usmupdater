@@ -1,0 +1,206 @@
+<div class="row">
+<nav id="myNavmenu" class="navmenu navmenu-default navmenu-inverse navmenu-fixed-left offcanvas" role="navigation">
+  <span class="navmenu-brand text-center"><img src="img/{{league.leagueNumber}}-icon.png" style="width: 15%;margin-right: 10px"><strong>{{league.name}} Database</strong></span>
+  <table class="table" style="border-color: #666">
+  <tr>
+    <td>Teams</td>
+    <td>{{teams.length}}</td>
+  </tr>
+  <tr>
+    <td>Players</td>
+    <td>{{playerCount}} / {{league.maxPlayers}}</td>
+  </tr>
+  <tr ng-repeat="division in league.divisions">
+    <td>{{division.name}}</td>
+    <td>{{divisionTeamCount[$index]}} teams</td>
+  </tr>
+  </table>
+  <ul class="nav navmenu-nav">
+    <li><a style="height: 35px" ng-click="changeLeague(0)"><img style="width: 10%" src="img/0-icon.png"> English</a></li>
+    <li><a style="height: 35px" ng-click="changeLeague(1)"><img style="width: 10%" src="img/1-icon.png"> French</a></li>
+    <li><a style="height: 35px" ng-click="changeLeague(2)"><img style="width: 10%" src="img/2-icon.png"> German</a></li>
+    <li><a style="height: 35px" ng-click="changeLeague(3)"><img style="width: 10%" src="img/3-icon.png"> Italian</a></li>
+    <li><a style="height: 35px" ng-click="changeLeague(4)"><img style="width: 10%" src="img/4-icon.png"> Scottish</a></li>
+    <li><a style="height: 35px" ng-click="changeLeague(5)"><img style="width: 10%" src="img/5-icon.png"> Spanish</a></li>
+    <li><a style="height: 35px" ng-click="changeLeague(6)"><img style="width: 10%" src="img/6-icon.png"> Dutch</a></li>
+    <li><a style="height: 35px" ng-click="changeLeague(7)"><img style="width: 10%" src="img/7-icon.png"> UEFA</a></li>
+    <li><a style="height: 35px" ng-click="changeLeague(8)"><img style="width: 10%" src="img/8-icon.png"> Other Leagues</a></li>
+
+  </ul>
+</nav>
+<div class="navbar navbar-default navbar-top navbar-inverse text-center" style="position: absolute; top: 0px; left: 0px; width: 100%">
+    <div class="col-xs-4">
+      <button type="button" class="navbar-toggle pull-left" style="display: inline-block; margin-left: 1em"data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="col-xs-4">
+      <span class="title"><img src="img/{{league.leagueNumber}}-icon.png" style="width: 40px;margin-right: 10px">{{league.name}} Database
+      </span>
+    </div>
+    <div class="col-xs-4">
+        <button type="button" style="margin: 7px" ng-click="saveAll()" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">Save Modified Data</button>
+    </div> 
+</div>
+</div>
+<div class="container" style="margin-left: 0px; margin-right: 0px; margin-top: 60px">
+    <div class="row">
+        <div class="col-xs-12">
+            <select class="form-control bigfont teamselect" name="teams" id="teams" ng-change="changeTeam()" ng-model="thisTeam" ng-options="team.name group by league.name +' teams' for team in teams">
+            </select>       
+
+    </div>
+    <div class="col-xs-8">
+        <div id="team">
+            <form class="form-inline" role="form">
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <label for="teamName">Team Name</label><br>
+                        <input id="teamName" class="form-control" ng-model="thisTeam.name">
+                    </div>
+                    <div class="form-group" ng-show="checkField('coach')">
+                        <label for="teamCoach">Coach</label><br>
+                        <input id="teamCoach" class="form-control" ng-model="thisTeam.coach">
+                    </div>
+                    <div class="form-group" ng-show="checkField('stadium')">
+                        <label for="teamStadium">Stadium</label><br>
+                        <input id="teamStadium" class="form-control" ng-model="thisTeam.stadium">
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="form-group" ng-show="checkField('nickname')">
+                        <label for="teamNickname">Nickname</label><br>
+                        <input id="teamNickname" class="form-control" ng-model="thisTeam.nickname">
+                    </div>
+                    <div class="form-group" ng-show="checkField('fanzine')">
+                        <label for="teamFanzine">Fanzine</label><br>
+                        <input id="teamFanzine" class="form-control" ng-model="thisTeam.fanzine">
+                    </div>
+                    <div class="form-group" ng-show="checkField('fanzine-editor')">
+                        <label for="teamEditor">Fanzine Editor</label><br>
+                        <input id="teamEditor" class="form-control" ng-model="thisTeam.editor">
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="form-group" ng-show="checkField('division')">
+                        <label for="teamDivision">Division</label><br>
+                        <select id="teamDivision" class="form-control division" ng-model="thisTeam.division" ng-options="entry.id as entry.name for entry in league.divisions" ng-change="onDivisionChange()"></select>
+                    </div>
+                    <div class="form-group" ng-show="checkField('attendance')">
+                        <label for="teamAttendance">Attendance</label><br>
+                        <input type="text" maxlength="5" id="teamAttendance" class="form-control attendance" ng-model="thisTeam.attendance">
+                    </div>
+                    <div class="form-group" ng-show="checkField('rank')">
+                        <label for="teamRank">Rank</label><br>
+                        <select id="teamRank" class="form-control rank" ng-model="thisTeam.rank" ng-options="n for n in [] | range:0:21"></select>
+                    </div>
+                    <div class="form-group" ng-show="checkField('home-color')">
+                        <label for="teamHomeColor">Home Color</label><br>
+                        <select id="teamHomeColor" class="form-control color" ng-model="thisTeam.homeColor" ng-options="entry.id as entry.name for entry in colors"></select>
+                    </div>
+                    <div class="form-group" ng-show="checkField('away-color')">
+                        <label for="teamAwayColor">Away Color</label><br>
+                        <select id="teamAwayColor" class="form-control color" ng-model="thisTeam.awayColor" ng-options="entry.id as entry.name for entry in colors"></select>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    <div class="col-xs-4" ng-show="checkField('stadium-cups-derby')">
+        <label>Stadium Capacity:</label> {{stadiums[thisTeam.index]}}<br>
+        <label>Participating in:</label> {{cups[thisTeam.index]}}<br>
+        <label>Derby: </label><select class="form-control derby inline" ng-model="thisTeam.derbyCode" ng-options="n for n in [] | range:0:256" ng-change="getDerby(thisTeam.derbyCode)"></select><br>
+        <label>Derby Teams with code {{thisTeam.derbyCode}}</label>
+        <div class="form-control" style="background: #434340;height: 5em;overflow-y:scroll;padding: 3px; width: 180px"><span ng-repeat="derbyTeam in derbyTeams">{{derbyTeam}}<br></span></div>
+    </div>
+    <div class="col-xs-12">
+    Players: {{thisTeam.players.length}}/30<br><br>
+                <button class="btn btn-success" onclick="window.scrollTo(0,document.body.scrollHeight);"ng-click="addPlayer()">Add a player</button>
+                <button ng-show="clipboard.player.length > 0" onclick="window.scrollTo(0,document.body.scrollHeight);" ng-click="pastePlayer()" class="btn btn-primary">
+                    Transfer Player: {{clipboard.player[0].firstName}} {{clipboard.player[0].lastName}} from {{clipboard.team[0].name}} 
+                </button>
+                <button ng-show="clipboard.player.length > 0" ng-click="unclip(clipboard.player[0])" class="btn btn-danger">
+                    Cancel Transfer: {{clipboard.player[0].firstName}} {{clipboard.player[0].lastName}} from {{clipboard.team[0].name}} 
+                </button>
+        <li>
+            
+            <div class="name">First Name</div>
+            <div class="name">Last Name</div>
+            <div class="skill">KP</div>
+            <div class="skill">TA</div>
+            <div class="skill">PS</div>
+            <div class="skill">SH</div>
+            <div class="skill">PC</div>
+            <div class="skill">HE</div>
+            <div class="skill">ST</div>
+            <div class="skill">SP</div>
+            <div class="skill">BC</div>
+            <div class="development">Development</div>
+            <div class="side">Side</div>
+            <div class="nation">Nation</div>
+            <div class="date">Birthday<br>  DD / MM / YY </div>
+
+
+        </li>
+        <li ng-repeat="player in thisTeam.players" ng-class="{'kp': getPosition(player) == 'kp','ta': getPosition(player) == 'ta','ps': getPosition(player) == 'ps', 'sh': getPosition(player) == 'sh', 'clipboard': player.editStatus}">
+            <input class="form-control name" ng-model="player.firstName">
+            <input class="form-control name" ng-model="player.lastName">
+            <input class="form-control skill" ng-model="player.skills.kp">
+            <input class="form-control skill" ng-model="player.skills.ta">
+            <input class="form-control skill" ng-model="player.skills.ps">
+            <input class="form-control skill" ng-model="player.skills.sh">
+            <input class="form-control skill" ng-model="player.skills.pc">
+            <input class="form-control skill" ng-model="player.skills.he">
+            <input class="form-control skill" ng-model="player.skills.st">
+            <input class="form-control skill" ng-model="player.skills.sp">
+            <input class="form-control skill" ng-model="player.skills.bc">
+ 
+
+           <select class="development form-control" ng-model="player.development" ng-options="development for development in developments"></select>
+           <select class="form-control side" ng-model="player.side" ng-options="entry.id as entry.label for entry in sides"></select>
+
+           <select class="form-control nation" ng-model="player.nation" ng-options="entry.id as entry.name for entry in nations"></select>
+            <input class="form-control skill" ng-model="player.birthDay">
+            <input class="form-control skill" ng-model="player.birthMonth">
+            <input class="form-control skill" ng-model="player.birthYear">
+            <button class="btn btn-info" ng-click="copyPlayer(player)">Transfer</button>
+            <button class="btn btn-danger" ng-really-message="Are you sure you want to delete {{player.firstName}} {{player.lastName}}?" ng-really-click="deletePlayer($index)">Del</button>
+            <button class="btn btn-info unclip" ng-click="unclip(player)">Cancel copy</button>
+        </li><br>
+        <button class="btn btn-success" ng-click="addPlayer()">Add a player</button>
+        <button ng-show="clipboard.player.length > 0" ng-click="pastePlayer()" class="btn btn-primary">
+            Transfer Player: {{clipboard.player[0].firstName}} {{clipboard.player[0].lastName}} from {{clipboard.team[0].name}} 
+        </button>
+        <button ng-show="clipboard.player.length > 0" ng-click="unclip(clipboard.player[0])" class="btn btn-danger">
+            Cancel Transfer: {{clipboard.player[0].firstName}} {{clipboard.player[0].lastName}} from {{clipboard.team[0].name}} 
+        </button>
+
+
+    </div>
+    <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title" id="myModalLabel">Save changes</h4>
+  </div>
+  <div class="modal-body">
+    The following leagues were modified and will be saved
+    <ul>
+        <li ng-repeat="league in modifiedLeagues">{{league}}</li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="confirmSave()">Save changes</button>
+  </div>
+</div>
+</div>
+</div>
+
+</div>
+

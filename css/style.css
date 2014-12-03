@@ -1,0 +1,106 @@
+body {
+    background: #272822;
+    color: white;        
+}
+input, select {
+    background: #434340!important;
+    color: white;
+    border: 1px solid #333!important;
+}
+li { 
+    list-style: none;
+}
+.bigfont {
+    font-size: 2em;
+}
+.bigfont optgroup {
+    font-size: 12px;
+}
+.teamselect {
+    width: 400px;
+    height: 50px;
+    font-weight: bold;
+    margin: 10px auto 20px auto;
+}
+.form-control {
+    padding: 5px 4px;
+    color: white;
+}
+.form-control.division {
+    width: 180px;
+}
+.form-control.attendance {
+    width: 121px;
+}
+.form-control.rank {
+    width: 50px;
+}
+.form-control.color {
+    width: 85px;
+    font-size: 0.8em;
+}
+.form-control.rank, .form-control.derby {
+    width: 50px;
+}
+.form-control.inline {
+    display: inline-block;
+}
+.name, .date, .nation, .skill, .development, .side {
+    display: inline-block;
+    font-size: 0.8em;
+    text-align: center;
+}
+.name {
+    width: 130px;
+}
+.date, .nation {
+    width: 82px;
+}
+.skill {
+    width: 23px;
+}
+.development {
+    width: 65px;
+    padding: 0;
+}
+.side {
+    width: 58px;
+    padding: 0;
+}
+.kp input {
+    color: #ff7777;
+}
+.ta input {
+    color: #fffb96;
+}
+.ps input {
+    color: #0EFF96;
+}
+.sh input {
+    color: #f7f7f7;
+}
+button.unclip {
+	display: none;
+}
+.title {
+    font-size: 2em;
+    font-weight: bold;
+}
+.modal-content {
+	background: #272822;
+}
+li.clipboard > input, li.clipboard > select {
+	background: red!important;
+	color: white!important;
+}
+li.clipboard > button {
+	display: none;
+}
+li.clipboard > button.unclip {
+	display: inline-block;
+}
+input[type=number].skill::-webkit-inner-spin-button, 
+input[type=number].skill::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

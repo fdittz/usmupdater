@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="teamApp">
+<head>
+    <title>USM Updater 0.1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script type="text/javascript">
+        //get node webkit GUI
+        var gui = require('nw.gui');
+         
+        // get the window object
+        var win = gui.Window.get();
+
+        win.width = 1024;
+        win.setMinimumSize(1024, 768);
+    </script>
+    <script src="js/tools/angular.min.js"></script>
+    <script src="js/tools/angular-route.min.js"></script> 
+    <script src="js/tools/jquery-1.11.0.js"></script>
+    <script src="js/tools/bootstrap.min.js"></script>
+    <script src="js/tools/jasny-bootstrap.min.js"></script>
+    <script src="js/tools/compare.js"></script>
+    <script src="js/tools/underscore.js"></script>
+    <script src="js/data/fromHex.js"></script>
+    <script src="js/data/toHex.js"></script>
+    <script src="js/data/stadiums.js"></script>
+    <script src="js/controller/teamcontroller.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/jasny-bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" ng-view></div>
+</body>
+</html>
