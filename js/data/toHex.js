@@ -144,16 +144,6 @@ function writeFile(output,filename) {
 		} catch (err) {
 			return false
 		}
-		/*fs.writeFileSync(filename, output, 'hex', function(err) {
-		    if(err) {
-		    	console.log(err);
-		        console.log(output);
-		        return false;
-		    } else {
-		        console.log("The file was saved!");
-		        return true;
-		    }
-		});*/
 }
 
 function a2hex(str) {

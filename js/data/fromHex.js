@@ -115,11 +115,8 @@ function readOtherTeams() {
 	return teams;
 }
 
-
-  	//console.log(teams)
 function populateWithPlayers(teams,leaguecode) {
 	playersFile = fs.readFileSync(directory + "/PLAYER" + leaguecode + ".DAT", 'hex')
-  //console.log(data);
   	var players = playersFile.match(/.{1,374}/g)
   	for (var i = 0; i < players.length; i++) {
   		var hexFirstName = players[i].substring(0,26).replace(/00/g,"");  
@@ -196,7 +193,6 @@ function hex2a(hexx) {
 
 function loadLeaguesFromFiles(where) {
 	directory = where;
-	console.log("THIS DIR " + directory )
 	english = {}
 	english.name = "English";
 	english.leagueNumber = 0;

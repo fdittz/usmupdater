@@ -58,7 +58,6 @@ teamApp.controller('teamCtrl', function ($scope,directoryService) {
     $scope.array = string.split(',');
     return $scope.result = $scope.array[nb];
   }
-   console.log(directoryService.getDirectory());
    loadLeaguesFromFiles(directoryService.getDirectory());
 
   $scope.getNumberOfTeamsPerDivision = function(array,divi) {
@@ -83,7 +82,6 @@ teamApp.controller('teamCtrl', function ($scope,directoryService) {
     for (var idiv in $scope.league.divisions) {
       teamsPerDivision.push($scope.getNumberOfTeamsPerDivision($scope.league.teams,$scope.league.divisions[idiv].id));
     }
-    console.log(teamsPerDivision)
     return teamsPerDivision;
   }
 
@@ -118,7 +116,6 @@ teamApp.controller('teamCtrl', function ($scope,directoryService) {
     $scope.divisionTeamCount = $scope.getAllDivisionsTeamsCount();
     $scope.stadiums = [];
     $scope.cups = [];
-    console.log($scope.league.name);
     switch($scope.league.name) {
     case "French":
         $scope.stadiums = stadiums.f;
@@ -261,7 +258,6 @@ $scope.copyPlayer = function(thisPlayer) {
   $scope.clip(thisPlayer);
 }
 $scope.pastePlayer = function() {
-  console.log($scope.clipboard.team.length)
   if (($scope.clipboard.team.length > 0) && ($scope.clipboard.player.length > 0)) {
     if ($scope.thisTeam.players.length < 30) {
       $scope.findAndDeletePlayer($scope.clipboard.team[0],$scope.clipboard.player[0]);
@@ -272,7 +268,6 @@ $scope.pastePlayer = function() {
       alert("This team already has 30 players");
     }
   }
-  console.log($scope.clipboard.player);
 } 
 
 $scope.findAndDeletePlayer = function (team,player) {
@@ -314,8 +309,7 @@ $scope.saveAll = function() {
 
 $scope.confirmSave = function() {
   for (var i in leagues) {
-    if (!equal(leagueOrig[i],JSON.parse(angular.toJson(leagues[i])))) {
-      console.log("LEAGUE BEING WRITTEN: " + leagues[i].name + " " + directoryService.getDirectory() + "/TEAM"+leagues[i].leagueCode+".DAT")
+    if (!equal(leagueOrig[i],JSON.parse(angular.toJson(leagues[i])))) {      
       if ($scope.writeHex(leagues[i])) {
         leagueOrig[i] = $.extend(true, {}, JSON.parse(angular.toJson(leagues[i])));
         $scope.modifiedLeagues = []
