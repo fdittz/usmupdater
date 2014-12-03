@@ -1,5 +1,5 @@
 {
-  "name": "myapp.helloworldapp",
+  "name": "usmupdater",
   "version": "1.0.0",
   "description": "",
   "main": "index.html",
@@ -9,6 +9,6 @@
   "author": "",
   "license": "MIt",
   "window": {
-  	"toolbar":true
+  	"toolbar":false
   }
 }
