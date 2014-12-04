@@ -41,6 +41,7 @@
       </span>
     </div>
     <div class="col-xs-4">
+        <button type="button" style="margin: 7px" ng-click="export()" class="btn btn-primary pull-right">Export to JSON</button>
         <button type="button" style="margin: 7px" ng-click="saveAll()" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">Save Modified Data</button>
     </div> 
 </div>
@@ -90,7 +91,7 @@
                     </div>
                     <div class="form-group" ng-show="checkField('attendance')">
                         <label for="teamAttendance">Attendance</label><br>
-                        <input type="text" maxlength="5" id="teamAttendance" class="form-control attendance" ng-model="thisTeam.attendance">
+                        <input type="text" maxlength="5" id="teamAttendance" class="form-control attendance" onkeydown="isNumber(event)" ng-model="thisTeam.attendance">
                     </div>
                     <div class="form-group" ng-show="checkField('rank')">
                         <label for="teamRank">Rank</label><br>
@@ -146,29 +147,29 @@
 
         </li>
         <li ng-repeat="player in thisTeam.players" ng-class="{'kp': getPosition(player) == 'kp','ta': getPosition(player) == 'ta','ps': getPosition(player) == 'ps', 'sh': getPosition(player) == 'sh', 'clipboard': player.editStatus}">
-            <input class="form-control name" ng-model="player.firstName">
-            <input class="form-control name" ng-model="player.lastName">
-            <input class="form-control skill" ng-model="player.skills.kp">
-            <input class="form-control skill" ng-model="player.skills.ta">
-            <input class="form-control skill" ng-model="player.skills.ps">
-            <input class="form-control skill" ng-model="player.skills.sh">
-            <input class="form-control skill" ng-model="player.skills.pc">
-            <input class="form-control skill" ng-model="player.skills.he">
-            <input class="form-control skill" ng-model="player.skills.st">
-            <input class="form-control skill" ng-model="player.skills.sp">
-            <input class="form-control skill" ng-model="player.skills.bc">
+            <input class="form-control name" ng-model="player.firstName" maxlength="13">
+            <input class="form-control name" ng-model="player.lastName" maxlength="13">
+            <input class="form-control skill" onkeydown="isNumber(event)" ng-model="player.skills.kp" maxlength="2">
+            <input class="form-control skill" onkeydown="isNumber(event)" ng-model="player.skills.ta" maxlength="2">
+            <input class="form-control skill" onkeydown="isNumber(event)" ng-model="player.skills.ps" maxlength="2">
+            <input class="form-control skill" onkeydown="isNumber(event)" ng-model="player.skills.sh" maxlength="2">
+            <input class="form-control skill" onkeydown="isNumber(event)" ng-model="player.skills.pc" maxlength="2">
+            <input class="form-control skill" onkeydown="isNumber(event)" ng-model="player.skills.he" maxlength="2">
+            <input class="form-control skill" onkeydown="isNumber(event)" ng-model="player.skills.st" maxlength="2">
+            <input class="form-control skill" onkeydown="isNumber(event)" ng-model="player.skills.sp" maxlength="2">
+            <input class="form-control skill" onkeydown="isNumber(event)" ng-model="player.skills.bc" maxlength="2">
  
 
            <select class="development form-control" ng-model="player.development" ng-options="development for development in developments"></select>
            <select class="form-control side" ng-model="player.side" ng-options="entry.id as entry.label for entry in sides"></select>
 
            <select class="form-control nation" ng-model="player.nation" ng-options="entry.id as entry.name for entry in nations"></select>
-            <input class="form-control skill" ng-model="player.birthDay">
-            <input class="form-control skill" ng-model="player.birthMonth">
-            <input class="form-control skill" ng-model="player.birthYear">
-            <button class="btn btn-info" ng-click="copyPlayer(player)">Transfer</button>
+            <input class="form-control skill" onkeydown="isNumber(event)" ng-model="player.birthDay">
+            <input class="form-control skill" onkeydown="isNumber(event)" ng-model="player.birthMonth">
+            <input class="form-control skill" onkeydown="isNumber(event)" ng-model="player.birthYear">
+            <button class="btn btn-primary" ng-click="copyPlayer(player)">Transfer</button>
             <button class="btn btn-danger" ng-really-message="Are you sure you want to delete {{player.firstName}} {{player.lastName}}?" ng-really-click="deletePlayer($index)">Del</button>
-            <button class="btn btn-info unclip" ng-click="unclip(player)">Cancel copy</button>
+            <button class="btn btn-info unclip" ng-click="unclip(player)">Cancel Transfer</button>
         </li><br>
         <button class="btn btn-success" ng-click="addPlayer()">Add a player</button>
         <button ng-show="clipboard.player.length > 0" ng-click="pastePlayer()" class="btn btn-primary">
@@ -203,4 +204,3 @@
 </div>
 
 </div>
-

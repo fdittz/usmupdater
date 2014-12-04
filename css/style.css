@@ -9,6 +9,7 @@ input, select {
 }
 li { 
     list-style: none;
+    margin-bottom: 2px;
 }
 .bigfont {
     font-size: 2em;
@@ -47,37 +48,40 @@ li {
 }
 .name, .date, .nation, .skill, .development, .side {
     display: inline-block;
-    font-size: 0.8em;
+    font-size: 0.9em;
     text-align: center;
 }
 .name {
-    width: 130px;
+    width: 120px;
 }
 .date, .nation {
-    width: 82px;
+    width: 85px;
 }
 .skill {
-    width: 23px;
+    width: 24px;
 }
 .development {
     width: 65px;
     padding: 0;
 }
 .side {
-    width: 58px;
+    width: 63px;
     padding: 0;
 }
-.kp input {
-    color: #ff7777;
+.kp,.ta,.ps,.sh {
+    font-weight: bold;
 }
-.ta input {
+.kp input, .kp select {
+    color: #999;
+}
+.ta input, .ta select {
     color: #fffb96;
 }
-.ps input {
+.ps input, .ps select {
     color: #0EFF96;
 }
-.sh input {
-    color: #f7f7f7;
+.sh input, .sh select {
+    color: #fff;
 }
 button.unclip {
 	display: none;

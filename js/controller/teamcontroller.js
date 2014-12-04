@@ -149,7 +149,7 @@ teamApp.controller('teamCtrl', function ($scope,directoryService) {
     }
     $scope.changeTeam()
   }
-  $scope.changeLeague(1);
+  $scope.changeLeague(0);
 
 
   $scope.call = function() {
@@ -318,6 +318,11 @@ $scope.confirmSave = function() {
     }
   }
 
+}
+
+$scope.export = function() {
+  console.log("EXPORTING")
+  writeJson(JSON.parse(JSON.stringify(angular.toJson(leagues))));
 }
   
 });

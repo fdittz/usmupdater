@@ -9,6 +9,6 @@
   "author": "",
   "license": "MIt",
   "window": {
-  	"toolbar":false
+  	"toolbar":true
   }
 }

@@ -123,7 +123,7 @@ function writeHexPlayer(player,teamNumber,leagueNumber) {
 			hexPadding(player.skills.he.toString(16)) +
 			hexPadding(player.skills.st.toString(16)) +
 			hexPadding(player.skills.sp.toString(16)) +
-			hexPadding(player.skills.bc.toString(16)) +
+			hexPadding(player.skills.bc.toString(16)) +node
 			"0".repeat(316-308) +
 			hexPadding(player.development.toString(16)) +
 			"FFFFFFFF00" +
@@ -145,6 +145,17 @@ function writeFile(output,filename) {
 			return false
 		}
 }
+
+function writeJson(leaguesJson) {
+		try {
+			fs.writeFileSync("export.json",leaguesJson, 'ascii')
+			return true;
+		} catch (err) {
+			return false
+		}
+}
+
+
 
 function a2hex(str) {
   var arr = [];
