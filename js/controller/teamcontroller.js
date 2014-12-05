@@ -321,8 +321,18 @@ $scope.confirmSave = function() {
 }
 
 $scope.export = function() {
-  console.log("EXPORTING")
-  writeJson(JSON.parse(JSON.stringify(angular.toJson(leagues))));
+  var zip = new require('node-zip')();
+  zip.file("export.json",JSON.parse(JSON.stringify(angular.toJson(leagues))));
+  var data = zip.generate({base64:true,compression:'DEFLATE'});
+  fs.writeFileSync('export.zip', data, 'binary');
+  var element = angular.element('<a/>');
+  var objToday = new Date();
+     element.attr({
+         href: 'export.zip',
+         target: '_blank',
+         download: 'usmup_export.zip'
+     })[0].click();
+
 }
   
 });
@@ -373,3 +383,4 @@ teamApp.directive("fileread", [function () {
         }
     }
 }]);
+
